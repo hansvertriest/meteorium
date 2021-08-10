@@ -1,0 +1,53 @@
+@import '../../../App.scss';
+
+.slider-card {
+    height: 45vh;
+    min-height: 400px;
+    background-color: $c-blue;
+    border-radius: $rad-normal;
+
+    display: flex;
+
+    &__img {
+        width: 30%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: $rad-normal 0 0 $rad-normal ;
+    }
+
+    &__text-container {
+        padding: 60px 40px;
+        color: $c-text;
+        
+
+        h2 {
+            font-weight: $weight-normal;
+        }
+    }
+}
+
+
+@media (max-width: $br-sm) { 
+    .slider-card {
+    height: 70vh;
+    min-height: 400px;
+    background-color: $c-blue;
+    border-radius: $rad-normal;
+
+    display: flex;
+    flex-direction: column;
+
+    &__img {
+        width: 100%;
+        height: 30%;
+        object-fit: cover;
+        border-radius: $rad-normal 0 0 $rad-normal ;
+    }
+
+    &__text-container {
+        padding: 5px 15px;
+        color: $c-text;
+        
+    }
+}
+}

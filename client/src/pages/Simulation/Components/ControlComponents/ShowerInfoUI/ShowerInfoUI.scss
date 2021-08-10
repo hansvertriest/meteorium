@@ -1,0 +1,218 @@
+@import '../../../../../App.scss';
+
+
+.shower-info {
+    background: $c-linear-transp;
+    border-radius: $rad-normal;
+    // position: absolute;
+    // right: 15px;
+    // top: 15vh;
+
+    min-width: 280px;    
+    width: 20vw;
+    max-width: 320px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    z-index: 100;
+
+    .tab-label {
+        display: none;
+        position: absolute;
+        left: -80%;
+        // top: 15%;
+        color: $c-text;
+        font-size: $font-small;
+        // width: 200%;
+    }
+
+    .hover-popup {
+        position: fixed;
+        width: 100px;
+        min-height: 80;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        background: $c-linear-transp;
+        border-radius: $rad-small;
+        p{
+            color: $c-text;
+            text-align: center;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0 30px; 
+        cursor: pointer;
+    }
+
+    &__header {
+        &-label {
+            font-size: $font-small;
+            color: $c-text-sec;
+            margin: 0 0 5px;
+        }
+
+        .shower-select {
+            position: relative;
+            border-radius: $rad-small;
+            background: $c-linear;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+
+            p {
+                cursor: pointer;
+                color: $c-text;
+                margin: 0;
+                padding: 10px 10px;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                img {
+                    width: 20px;
+                }
+            }
+            &__list {
+                cursor: pointer;
+                border-radius: 0 0 $rad-normal $rad-normal ;
+                width: 100%;
+                height: 400px;
+                overflow-y: scroll;
+                position: absolute;
+                background: $c-linear;
+                &-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    p {
+                        font-size: $font-small; 
+                        width: 100%;
+                        padding: 0;
+                    }
+
+                    p:last-of-type {
+                        width: auto;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-between;
+                        span {
+                            color: $c-text-sec;
+                        }
+                    }
+                }
+                &-item:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+
+        .shower-select--active {
+            background: $c-linear;
+        }
+    }
+
+    &__body {
+        &-view {
+            // color: $c-accent;
+            color: $c-text-sec;
+            cursor: pointer;
+            font-size: $font-small;
+            // text-align: right;
+            display: flex;
+            justify-content: space-between;
+            span {
+                color: $c-text;
+                text-decoration: underline;
+            }
+        }
+        &-title {
+            font-size: $font-normal;
+            color: $c-text;
+            margin: 0;
+            margin-top: 30px;
+        }
+        .highlight-checkbox {
+            margin: 20px 3px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: $c-text;
+
+            input {
+                margin-right: 10px;
+            }
+        }
+        &-info-container {
+            font-size: $font-small;
+            display: flex;
+            justify-content: space-between;
+            .info-container__label {
+                color: $c-text-sec;
+            }
+            .info-container__value {
+                color: $c-text;
+            }
+        }
+
+        &-cta {
+            text-decoration: underline;
+            color: $c-text-sec;
+            font-size: $font-small;
+            display: block;
+            text-align: right;
+            cursor: pointer;
+        }
+   } 
+}
+
+.shower-info--hidden {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.4s;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .shower-info__icon {
+        margin: 0;
+    }
+}
+
+.shower-info--hidden:hover {
+    margin-right: 5px;
+    .tab-label {
+        display: block;
+    }
+}
+
+@media (max-width: $br-sm) { 
+    .shower-info{
+        // center
+        position: absolute;
+        margin-left: 0px;
+
+        width: 800px;
+        max-width: 90vw;
+        background: $c-linear;
+        z-index: 150;
+    }
+    .shower-info--hidden {
+        // position: relative; 
+        // min-width: 60px;
+        width: 60px;
+        // height: 60px;
+        z-index: 100;
+    }
+    .shower-info--hidden:hover {
+        margin-right: 0px;
+        .tab-label {
+            display: none;
+        }
+    }
+}

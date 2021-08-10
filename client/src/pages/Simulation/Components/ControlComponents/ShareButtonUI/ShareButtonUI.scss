@@ -1,0 +1,52 @@
+@import '../../../../../App.scss';
+
+.share-button {
+    box-sizing: border-box;
+    width: 60px;
+    padding: 16px;
+    background: $c-linear-transp;
+    border-radius: $rad-normal;
+
+    img {
+        width:100%;
+        cursor: pointer;
+    }
+
+    &__popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+
+
+
+        &-inner {
+            position: absolute;
+            box-sizing: border-box; 
+            background: $c-linear-transp;
+            border-radius: $rad-normal;
+            padding: 30px 30px 45px;
+            width: 500px;
+
+            p {
+                color: $c-text;
+            }
+            input {
+                width: 100%;
+            }
+            &-close {
+                width: 20px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                cursor: pointer;
+              }
+        }
+    }
+}

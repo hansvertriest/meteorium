@@ -1,0 +1,106 @@
+@import '../../../App.scss';
+
+.intro-popup-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $c-text;
+    font-size: $font-small;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 200;
+
+    .intro-popup {
+        width: 400px;
+        padding: 50px;
+        background: $c-linear;
+        line-height: 150%;
+        border-radius: $rad-normal;
+
+        .logo {
+            margin-bottom: 30px;
+            img {
+                height: 90px;
+                width: 90px;
+            }
+        }
+
+        
+
+        &__loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            background-color: rgba(0,0,0, 0.2);
+            padding: 20px;
+            p {
+                display: inline;
+                margin: 0;
+            }
+            p:last-of-type {
+                color: $c-text-sec;
+            }
+        }
+    }
+}
+
+@media (max-width: $br-sm) { 
+.intro-popup-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $c-text;
+    font-size: $font-small;
+
+    background-color: rgba(0, 0, 0, 0.8);
+
+    .intro-popup {
+        box-sizing: border-box;
+        width: 400px;
+        max-width: 90vw;
+        padding: 30px;
+        background: $c-linear;
+        line-height: 150%;
+        border-radius: $rad-normal;
+
+        .logo {
+            margin-bottom: 30px;
+            img {
+                height: 90px;
+                width: 90px;
+            }
+        }
+
+        
+
+        &__loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+            background-color: rgba(0,0,0, 0.2);
+            padding: 20px;
+            p {
+                display: inline;
+                margin: 0;
+            }
+            p:last-of-type {
+                color: $c-text-sec;
+            }
+        }
+    }
+} 
+}

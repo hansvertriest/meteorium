@@ -1,0 +1,337 @@
+@import '../../../../../App.scss';
+
+.time-control {
+    width: 80vw;
+    max-width: 800px;
+    position: absolute;
+    bottom: 1vh;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    z-index: 99;
+
+    &__control-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        // justify-content: space-between;
+        // align-items: center;
+        margin-bottom: 15px;
+
+        &-middle {
+          align-self: center;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+
+
+          .play-pause-skip-container {
+            margin: 0 15px;
+            #play-btn {
+                width: 50px;
+            }
+            #play-btn:hover {
+                cursor: pointer;
+            }
+          }
+        }
+
+        &-left {
+          align-self: center;
+          color: $c-text;
+          .control-container-time {
+            width: 90px;
+            font-size: $font-normal;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+
+            span {
+              color: $c-text;
+            }
+          }
+          .control-container-date {
+            font-size: $font-small;
+            color: $c-text-sec;
+            cursor: pointer;
+            margin: 0;
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 15px;
+              margin: 0 0 4px 6px;
+            }
+          }
+        }
+        &-right {
+          align-self: center;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          grid-column: 3/4;
+          .speed-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            &__text {
+                color: $c-text;
+
+                span {
+                    color:$c-text-sec;
+                }
+            }
+
+            .speed-container__slider {
+                width: 150px;
+            }
+          }
+        }
+    }
+
+    &__timeline-container {
+        height: 140px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .timeline-top {
+            // height: 30px;
+            padding: 6px 15px;
+            background: $c-linear;
+            border-radius: $rad-normal $rad-normal 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                color: white;
+                font-size: $font-small;
+                color: $c-text-sec;
+                margin: 0;
+            }
+        }
+
+        .timeline {
+            height: 100%;
+            background: $c-linear-transp;
+            border-radius: 0 0 $rad-normal $rad-normal;
+
+            .time-indicator {
+                position: absolute;
+                top: 35px;
+                left:0;
+                height: 73px;
+                background-color: rgba(0,0,0,0.7);
+                z-index: 1;
+                .time-indicator__bar {
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  height: 100%;
+                  width: 5px;
+                  background-color: white;
+                }
+            }
+        }
+        .legenda-entries {
+          width: 100%;
+          z-index: 2;
+          display: flex;
+          justify-content: space-between;
+          max-height: 100px;
+          cursor: pointer;
+          
+          &__entry {
+            box-sizing: border-box;
+            // width: 100%;
+            display: flex;
+            align-items: center;
+            // margin-bottom: 2px;
+            padding: 2px 5px;
+            div {
+              width: 10px;
+              height: 10px;
+              margin-right: 8px;
+            }
+            p{
+              margin: 4px 0;;
+              color: $c-text;
+              font-size: $font-small;
+            }
+          }
+        }
+    }
+}
+
+
+@media (max-width: $br-sm) { 
+  .time-control {
+    &__control-container {
+      grid-template-columns: repeat(2, 1fr);
+      font-size: $font-mob-normal;
+        &-middle {
+          justify-content: flex-end;
+        }
+        &-right {
+          display: none;
+        }
+        &-left {
+          .control-container-time {
+            font-size: $font-mob-normal;
+
+            span {
+              color: $c-text;
+            }
+          }
+          .control-container-date {
+            font-size: $font-mob-small;
+          }
+        }
+    }
+
+    &__timeline-container {
+        .timeline-top {
+          display: none;
+        }
+
+        .timeline {
+          border-radius:$rad-normal;
+            .time-indicator {
+              border-radius: $rad-small;
+              height: 85px;;
+              top: 0;
+                .time-indicator__bar {
+                }
+            }
+        }
+        .legenda-entries {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: baseline;
+          &__entry p {
+            font-size: $font-mob-mini;
+          }
+        }
+    }
+  }
+}
+
+// HIDE DEFAULT SLIDER
+input[type=range] {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 100%; /* Specific width is required for Firefox. */
+    background: transparent; /* Otherwise white in Chrome */
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+  
+  input[type=range]:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+  }
+  
+  input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+  
+    /* Hides the slider so custom styles can be added */
+    background: transparent; 
+    border-color: transparent;
+    color: transparent;
+  }
+
+// STYLING THUMB
+
+  /* Special styling for WebKit/Blink */
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: $c-accent;
+    cursor: pointer;
+    margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  }
+  
+  /* All the same stuff for Firefox */
+  input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: $c-accent;
+    cursor: pointer;
+    margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  }
+  
+  /* All the same stuff for IE */
+  input[type=range]::-ms-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: $c-accent;
+    cursor: pointer;
+    margin-top: -5px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+  }  
+
+//   STYLING TRACK
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    background: $c-blue;
+    border-radius: 50px;
+  }
+  
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: $c-blue;
+  }
+  
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    background: $c-blue;
+    border-radius: 1.3px;
+    border: 0.2px solid #010101;
+    border-radius: 50px;
+  }
+  
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: $c-blue;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: $c-blue;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: $c-blue;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: $c-blue;
+  }

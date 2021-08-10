@@ -1,0 +1,127 @@
+@import '../../../../../App.scss';
+
+
+.fpv-control {
+    background: $c-linear-transp;
+    border-radius: $rad-normal;
+
+    min-width: 280px;    
+    width: 20vw;
+    height: 50vh;
+    max-height: 300px;
+    max-width: 320px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .tab-label {
+        display: none;
+        position: absolute;
+        left: -80%;
+        // top: 15%;
+        color: $c-text;
+        font-size: $font-small;
+        // width: 200%;
+    }
+
+
+    .fpv-control__icon {
+        display: flex;
+        justify-content: center;
+        // margin: 15px 0 30px; 
+        cursor: pointer;
+
+        img {
+            width: 50px;
+            max-width: 70px;
+        }
+    }
+
+    &__header {
+        &-label {
+            font-size: $font-small;
+            color: $c-text-sec;
+            margin: 0 0 5px;
+        }
+    }
+
+    .speed-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        &__text {
+            color: $c-text;
+
+            span {
+                color:$c-text-sec;
+            }
+        }
+
+        .speed-container__slider {
+            width: 150px;
+        }
+    }
+    .fpv-control__leave {
+        color: $c-text;
+        text-decoration: underline;
+    }
+}
+
+.fpv-control--hidden {
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.4s;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .fpv-control__icon {
+        margin: 0;
+        img {
+            width: 80%;
+        }
+    }
+}
+
+.fpv-control--hidden:hover {
+    margin-right: 5px;
+    .tab-label {
+        display: block;
+    }
+}
+
+@media (max-width: $br-sm) { 
+    .fpv-control{
+        // center
+        position: absolute;
+        margin-left: 0px;
+
+        width: 800px;
+        max-width: 90vw;
+        background: $c-linear;
+        z-index: 150;
+    }
+    .fpv-control--hidden {
+        // position: relative; 
+        // min-width: 60px;
+        width: 60px;
+        // height: 60px;
+        z-index: 100;
+    }
+    .fpv-control--hidden:hover {
+        margin-right: 0px;
+        .tab-label {
+            display: none;
+        }
+    }
+}

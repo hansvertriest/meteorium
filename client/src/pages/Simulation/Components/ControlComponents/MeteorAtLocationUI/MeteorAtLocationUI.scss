@@ -1,0 +1,254 @@
+@import "../../../../../App.scss";
+
+.meteors-at-location-tab {
+  position: relative;
+  min-width: 280px;
+  width: 20vw;
+  max-width: 320px;
+  // background-color: rgba(222, 222, 222, 0.80);
+  background: $c-linear-transp;
+  box-sizing: border-box;
+  border-radius: $rad-normal;
+
+  .tab-label {
+    display: none;
+    position: absolute;
+    left: 110%;
+    top: 15%;
+    color: $c-text;
+    font-size: $font-small;
+    width: 200%;
+  }
+
+  .meteors-at-location-tab__header {
+    @include tab-layout;
+    border-radius: $rad-normal $rad-normal 0 0;
+    p {
+      transition: all 0.4s;
+
+      img {
+        position: relative;
+        top: 4px;
+        margin-left: 4px;
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+
+    img {
+      cursor: pointer;
+    }
+
+    .selected-location-label,
+    .selected-location-change {
+      margin: 0px;
+      color: $c-text-sec;
+      font-size: $font-mini;
+    }
+    .selected-location-change {
+      display: inline;
+      text-decoration: underline;
+    }
+    .selected-location-change:hover {
+      color: $c-text;
+    }
+  }
+
+  .meteors-at-location-tab__body {
+    padding: 0px 0 30px;
+    .meteors-at-location-tab-intro {
+      padding: 10px 20px;
+      color: $c-text;
+      font-size: $font-small;
+      cursor: pointer;
+    }
+    .shower-list-container-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-small;
+      color: $c-text-sec;
+    }
+    .shower-list-container {
+      padding: 10px 10px 20px 10px;
+      overflow-y: scroll;
+      // max-height: 340px;
+      max-height: 35vh;
+
+      .no-shower-msg {
+        font-size: $font-small;
+        color: $c-text-sec;
+      }
+
+      .shower-option {
+        width: 100%;
+        margin-bottom: 15px;
+        .shower-option-sub-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          p {
+            font-size: $font-normal;
+            color: $c-text;
+            margin: 3px 0;
+          }
+          p:nth-of-type(2) {
+            color: $c-text-sec;
+          }
+        }
+        .shower-option-sub-container--small {
+          p {
+            font-size: $font-mini;
+            color: $c-text-sec;
+          }
+
+          p:nth-of-type(2) {
+            color: $c-text;
+          }
+          .shower-option-cta {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .shower-option--loading {
+        width: 100%;
+        margin-bottom: 15px;
+        .shower-option-sub-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          p {
+            width: 60%;
+            height: 20px;
+            margin: 6px 0;
+            @include loading-gradient;
+          }
+          p:nth-of-type(2) {
+            width: 10%;
+            height: 20px;
+          }
+        }
+        .shower-option-sub-container--small {
+          p {
+            width: 50%;
+            height: 14px;
+            margin: 6px 0;
+            @include loading-gradient;
+          }
+          p:nth-of-type(2) {
+            width: 30%;
+            height: 14px;
+          }
+        }
+      }
+    }
+  }
+  .showers-about {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    background-color: $c-blue;
+    font-size: $font-small;
+    border-radius: 0 0 $rad-normal $rad-normal;
+  }
+}
+
+.meteors-at-location-tab--hidden {
+  padding: 0;
+  min-width: 60px;
+  width: 60px;
+  cursor: pointer;
+  transition: all 0.4s;
+  .meteors-at-location-tab__header {
+    border-radius: $rad-normal;
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+  }
+}
+
+.meteors-at-location-tab--hidden:hover {
+  margin-left: 5px;
+  .tab-label {
+    display: block;
+  }
+}
+
+.location-popup-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  .location-popup {
+    box-sizing: border-box;
+    position: absolute;
+    width: 500px;
+    max-width: 95vw;
+    padding: 20px 40px 40px;
+    background: $c-linear;
+    border-radius: $rad-normal;
+    p {
+      font-size: $font-normal;
+      color: $c-text;
+      text-align: center;
+    }
+    &__close {
+      width: 20px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    .map {
+      width: 100%;
+      height: 300px;
+      border-radius: $rad-small;
+      overflow: hidden;
+    }
+  }
+}
+
+@media (max-width: $br-sm) {
+  .meteors-at-location-tab {
+    // center
+    position: absolute;
+    margin-left: 0px;
+
+    width: 800px;
+    max-width: 90vw;
+    background: $c-linear;
+    z-index: 150;
+  }
+  .meteors-at-location-tab--hidden {
+    position: relative;
+    min-width: 60px;
+    width: 60px;
+    height: 60px;
+    z-index: 100;
+  }
+  .meteors-at-location-tab--hidden:hover {
+    margin-left: 0px;
+    .tab-label {
+      display: none;
+    }
+  }
+
+  .location-popup-container {
+    .location-popup {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+  }
+}

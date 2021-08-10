@@ -1,0 +1,38 @@
+@import '../../../../../../App.scss';
+
+.option-loading{
+    height: 50px;
+    margin-bottom: 10px;
+    .option-bar-container{
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        
+        p {
+            height: 100%;
+            width: 20%;
+            @include loading-gradient;
+        }
+        .option-bar { 
+            width: 100%;
+            position: absolute;
+            left:0;
+            bottom: 0;
+            height: 2px;
+            @include loading-gradient;
+        }
+
+        
+        .option-description {
+            width: 30%;
+            height: 60%;
+        }
+    }
+}
+.top-year-option-bar-container:hover, .top-month-option-bar-container:hover, .top-day-option-bar-container:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}

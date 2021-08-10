@@ -1,0 +1,30 @@
+@import '../../App.scss';
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+        
+    p {
+        text-transform: uppercase;
+        color: $c-text;
+        margin: 0;
+        font-size: 18px;
+    }
+    img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+.logo--vertical {
+    flex-direction: column;
+}
+
+.logo--horizontal {
+    flex-direction: row;
+    p {
+        margin-left: 15px;
+    }
+}

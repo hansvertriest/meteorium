@@ -1,0 +1,49 @@
+@import '../../../../../../App.scss';
+
+.year-option, .month-option, .day-option {
+    margin-bottom: 10px;
+    .top-year-option-bar-container, .top-month-option-bar-container, .top-day-option-bar-container {
+        // height: 30px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        
+        p {
+            z-index: 1;
+            margin: 3px 0;
+            padding: auto 0;
+            justify-self: center;
+            color: $c-text;
+            font-size: $font-normal;
+
+            span {
+                color: grey;
+            }
+        }
+        .year-option-bar, .month-option-bar, .day-option-bar{ 
+            position: absolute;
+            left:0;
+            bottom: 0;
+            height: 2px;
+            background-color: $c-accent;
+        }
+
+        
+        .option-description {
+            font-size: $font-mini;
+            margin: 3px 0 0 0;
+            font-weight: $font-weight-medium;
+            color: $c-text;
+            span {
+                color: $c-text-sec;
+                font-weight: $font-weight-medium;
+            }
+        }
+    }
+}
+.top-year-option-bar-container:hover, .top-month-option-bar-container:hover, .top-day-option-bar-container:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,48 @@
+@import '../../../App.scss';
+
+.controls-ui {
+    .header {
+        position: fixed;
+        top: 0;
+        width: 80vw;
+        left: 50%;
+        transform: translateX(-50%); 
+    }
+
+    .ui-layer__tabs-right {
+        position: absolute;
+        box-sizing: border-box;
+        right: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 15vh 15px 15px 15px;
+        // height: 100vh;
+        
+        & > * {
+            margin-bottom: 20px ;
+            flex: 0 1 auto;
+        }
+    }
+
+    .ui-layer__tabs-left {
+        z-index: 100;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 15vh 15px 15px 15px;
+        // height: 100vh;
+        // overflow-y: hidden;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    
+        & > * {
+            margin-bottom: 20px ;
+            flex: 0 1 auto;
+        }
+    }
+}

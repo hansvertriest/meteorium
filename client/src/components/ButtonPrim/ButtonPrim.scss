@@ -1,0 +1,10 @@
+@import '../../App.scss';
+
+.button-primary {
+    background-color: #00173A;
+    color: $c-text;
+    border: none;
+    padding: 13px 40px;
+    cursor: pointer;
+    display: block;
+}

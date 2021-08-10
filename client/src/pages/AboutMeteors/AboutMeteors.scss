@@ -1,0 +1,260 @@
+@import '../../App.scss';
+
+body {
+    background: $c-linear;
+}
+
+.page-container {
+    height: 100px;
+    margin: 0 auto;
+    width: 80vw;
+    max-width: 1500px;
+}
+
+// Global styles for all sections
+
+.meteors {
+  
+h1 {
+    margin-left: 40px;
+}
+
+.body-text-container {
+    background-color: $c-blue;
+    border-radius: $rad-normal;
+    padding: 25px 40px;
+    color: $c-text;
+    font-size: 16px;
+    box-shadow: 0px 25px 18px -20px rgba(0, 0, 0, 0.25);
+}
+
+.picture-label {
+    height: 10%;
+    color: $c-text-sec;
+    font-size: $font-mini;
+    text-align: right;
+    span {
+        color: $c-text;
+    }
+}
+
+// Sections styling
+.shooting-stars {
+    height: 90vh;
+    max-height: 800px;
+    display: grid;
+    grid-template-columns: repeat( 12, 1fr);
+    grid-template-rows: repeat( 12, 1fr);
+    align-items: end;
+    margin-bottom: 100px;
+    
+    &__img-container {
+        grid-column: 7 / 13;
+        grid-row: 1 / 13;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 90%;
+            object-fit: cover;
+        }
+    }
+
+    &__text-container {
+        grid-column: 1 / 9;
+        grid-row: 2 / 11;
+    }
+}
+
+.smaller-objects, .smaller-objects-filler {
+    height: 60vh;
+    min-height: 600px;
+    margin-bottom: 200px;
+}
+
+.smaller-objects {
+    background-color: $c-text;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        color: black;
+        font-size: 36px;
+        text-align: center;
+    }
+
+    // &__cards  {
+    //     .slider-card:first-of-type {
+
+    //         // margin-left: 10vh;
+    //     }
+    // }
+
+    .swiper-slide {
+        width: 80vw;
+    }
+    .swiper-pagination-bullet {
+        background-color: $c-text-sec !important;
+        background: none;
+        opacity: 1;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: $c-text !important;
+        border: 1px solid $c-text;
+        // background-color: $c-text !important;
+    }
+
+    // .smaller-objects__cards {
+    //     .swiper-container {
+    //         width: 80vw!important;
+    //         max-width: 1500px!important;
+    //     }
+    // }
+}
+
+
+.meteor-showers {
+    height: 80vh;
+    max-height: 900px;
+    display: grid;
+    grid-template-columns: repeat( 12, 1fr);
+    grid-template-rows: repeat( 12, 1fr);
+    align-items: end;
+    margin-bottom: 100px;
+    
+    &__img-container {
+        grid-column: 1 / 10;
+        grid-row: 1 / 13;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 90%;
+        }
+    }
+
+    &__text-container {
+        grid-column: 7 / 13;
+        grid-row: 3 / 11;
+    }
+}
+
+.meteorites {
+    height: 90vh;
+    max-height: 900px;
+    display: grid;
+    grid-template-columns: repeat( 12, 1fr);
+    grid-template-rows: repeat( 12, 1fr);
+    align-items: end;
+    
+    &__img-container {
+        grid-column: 5 / 13;
+        grid-row: 1 / 13;
+        height: 100%;
+        img {
+            width: 100%;
+            height: 90%;
+            object-fit: cover;
+            object-fit: cover;-webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+    }
+
+    &__text-container {
+        grid-column: 1 / 8;
+        grid-row: 3 / 11;
+        z-index: 10;
+    }
+}
+}
+
+
+@media (max-width: $br-xl) {
+.page-container {
+    background-color: 'green';
+    width: 90vw;
+    max-width: 600px;
+} 
+.meteors {
+    h1 {
+        font-size: $font-mob-large;
+        margin-left: 15px;
+    }
+    .body-text-container {
+        padding: 15px 20px;
+    }
+    .shooting-stars {
+        background-color: 'green';
+        height: 120vh;
+        max-height: 1000px;
+
+        &__img-container {
+            grid-column: 2 / 13;
+            grid-row: 8 / 13;
+            height: 100%;
+            img {
+                width: 100%;
+                height: 90%;
+                object-fit: cover;
+            }
+        }
+
+        &__text-container {
+            grid-column: 1 / 12;
+            grid-row: 1 / 9;
+        }
+    }
+    .smaller-objects {
+        h1 {
+            font-size: $font-mob-large !important;
+        }
+        min-height: 95vh !important;
+        .swiper-slide {
+            // width: 50vh !important;
+        }
+    }
+    .meteor-showers {
+        
+        height: 90vh;
+        &__img-container {
+            grid-column: 1 / 12;
+            grid-row: 7/ 13;
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 90%;
+            }
+        }
+    
+        &__text-container {
+            grid-column: 2 / 13;
+            grid-row: 1 / 8;
+        }
+    }
+    .meteorites {
+        height: 115vh;
+        margin-bottom: 300px;
+
+        &__img-container {
+            grid-column: 2 / 13;
+            grid-row: 5 / 13;
+            img {
+                width: 100%;
+                height: 80%;
+                object-fit: cover;
+                object-position: 10%;
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+        }
+    
+        &__text-container {
+            grid-column: 1 / 12;
+            grid-row: 3 / 9;
+            z-index: 10;
+        }
+    }
+}
+}

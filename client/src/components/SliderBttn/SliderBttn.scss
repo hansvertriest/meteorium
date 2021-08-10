@@ -1,0 +1,48 @@
+@import '../../App.scss';
+
+.slider-bbtn-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+
+    .slider-bttn__text {
+        color: $c-text;
+        margin: 0 8px 0 0;
+        font-size: $font-small;
+    }
+
+    .slider-bttn {
+        height: 20px;
+        width: 50px;
+        background: $c-linear;
+        position: relative;
+        cursor: pointer;
+        border-radius: 100px;
+
+        &__active-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: $c-accent;
+            border-radius: 100px;
+            transition: width 0.5s ease-in;
+            display: flex;
+            width: 20px;
+
+            .slider-bttn__active-bg-circle {
+                height: 100%;
+                width:  20px;
+                border-radius: 50%;
+                margin-left: auto;
+                background-color: $c-text;
+                transition: all 0.2s ease-in;
+            }
+        }
+        &__active-bg--active {
+            width: 100%;
+        }
+    }
+}

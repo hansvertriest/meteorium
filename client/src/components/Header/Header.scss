@@ -1,0 +1,96 @@
+@import '../../App.scss';
+
+.header {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 40px;
+
+    .header__hamburger {
+        cursor: pointer;
+    }
+
+    .header__hamburger {
+        // position:relative;
+        top: 30px;
+        right: 0;
+        transition: all 0.5s ease-in;
+    }
+
+    .menu {
+        position: fixed;
+        box-sizing: border-box;
+        top: 0;
+        background: $c-linear;
+        width: 30vw;
+        max-width: 500px;
+        min-width: 300px;
+        margin-left: auto;
+        // right: -500px;
+        height: 100%;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        z-index: 150;
+
+        transition: all 0.3s ease-in;
+        
+
+        img {
+            cursor:pointer;
+            align-self: flex-end;
+            width: 30px;
+        }
+
+        &__links {
+            margin-top: 100px;
+            a {
+                display: block;
+                color: $c-text;
+                font-size: $font-normal;
+                cursor:pointer;
+                text-decoration: none;
+                margin: 20px 0;
+            }
+            a:hover {
+                color: $c-accent;
+            }
+        }
+
+        &__contact {
+            width: 80%;
+            position: absolute;
+            bottom: 40px;
+            align-self: center;
+            text-align: center;
+            p {
+                color: $c-text-sec;
+                font-size: $font-normal;
+                text-align: center;
+                margin: 0;
+            }
+            a {
+                font-size: $font-normal;
+            }
+            a:hover {
+                color: $c-accent;
+            }
+
+            .menu__references {
+                margin-top: 40px;
+                font-size: $font-mini;
+                color: $c-text-sec;
+                text-align: left;
+            }
+        }
+
+    }
+}
+
+@media (max-width: $br-sm) { 
+    .header {
+        .menu {
+            width: 100vw; 
+        }
+    }
+}

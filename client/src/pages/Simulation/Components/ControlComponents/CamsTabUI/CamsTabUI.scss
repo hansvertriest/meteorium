@@ -1,0 +1,154 @@
+@import '../../../../../App.scss';
+
+.cams-tab {
+    position:relative;
+    min-width: 280px;
+    width: 20vw;
+    max-width: 320px;
+    // max-height: 600px;
+    max-height: 55vh;
+    // background-color: rgba(222, 222, 222, 0.80);
+    background: $c-linear-transp;
+    border-radius: $rad-normal;
+
+    .tab-label {
+        display: none;
+        position: absolute;
+        left: 110%;
+        top: 15%;
+        color: $c-text;
+        font-size: $font-small;
+        width: 200%;
+    }
+    
+    .cams-tab__header {
+        @include tab-layout;
+        p { 
+            margin-left: auto;
+            transition: all 0.4s; 
+        }
+    }
+
+    .cams-tab__header {
+        cursor: pointer;
+    }
+
+    .cams-tab__body {
+
+        .highlight-checkbox {
+            margin: 10px 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: $c-text;
+
+            input {
+                margin-right: 10px;
+            }
+        }
+
+        .cams-info  {
+            color: $c-text-sec;
+            font-size: $font-small;
+            margin: 10px 10px;
+        }
+        .networks-container {
+            margin: 10px 10px 5px;
+            overflow-y: scroll;
+            max-height: 25vh;
+            // max-height: 240px;
+            .network {
+                padding: 3px 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: $font-small;
+                p {
+                    flex-shrink: 1;
+                    margin: 5px 0;
+                    color: $c-text;
+                }
+                .network-color {
+                    flex-shrink: 0;
+                    // border: 2px solid $c-text-black;
+                    margin-left: 10px;
+                }
+            }
+
+            .network--hover:hover {
+                cursor: pointer;
+                background-color: rgba(255, 255, 255, 0.1);
+                p {
+                    .network-color {
+                        border: none;
+                    }
+                }
+            }
+
+            .network--none p {
+                color: $c-text-sec;
+            }
+        }
+
+        .cams-about {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            background-color: $c-blue;
+            font-size: $font-small;
+            border-radius: 0 0 $rad-normal $rad-normal;
+        }
+    }
+
+}
+
+.cams-tab--hidden:hover {
+    margin-left: 5px;    
+    .tab-label {
+        display: block;
+    }
+}
+
+.cams-tab--hidden {
+    min-width: 60px;
+    width: 60px;
+    cursor: pointer;
+    transition: all 0.4s;
+    .cams-tab__header {
+        padding: 0;
+        height: 60px;
+        font-size: $font-small;
+        p{
+            margin: auto;
+        }
+    }
+}
+
+
+
+@media (max-width: $br-sm) { 
+    .cams-tab{
+        position: absolute;
+        margin-left: 0px;
+    
+        width: 800px;
+        max-width: 90vw;
+        background: $c-linear;
+        z-index: 150;
+    }
+    .cams-tab--hidden {
+        position: relative; 
+        min-width: 60px;
+        width: 60px;
+        height: 60px;
+        z-index: 100;
+    }
+    .cams-tab--hidden:hover {
+        margin-left: 0px;
+        .tab-label {
+            display: none;
+        }
+    }
+}
