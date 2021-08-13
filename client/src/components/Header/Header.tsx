@@ -1,4 +1,6 @@
+// Node imports
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // Components imports
 import { Logo } from '../';
@@ -11,8 +13,13 @@ import hamburgerIcon from '../../assets/icons/hamburger-icon.svg';
 import cancelIcon from '../../assets/icons/cancel-icon.svg';
 
 const Header: React.FunctionComponent<Record<string, never>> = () => {
-
+    const history = useHistory();
     const [ menuIsVisible, setMenuIsVisbile ] = useState<boolean>(false);
+
+    const navigateTo = (e: React.MouseEvent, path: string) => {
+        e.preventDefault();
+        history.push(path)
+    }
 
     return(
         <div className="header">
@@ -31,14 +38,13 @@ const Header: React.FunctionComponent<Record<string, never>> = () => {
                     onClick={() => setMenuIsVisbile(false)}
                 />
                 <div className="menu__links" >
-                    <a href="/">View the meteorium</a>
-                    <a href="/about-meteors">About meteors</a>
-                    <a href="/about-cams">About the CAMS-project</a>
+                    <a href="/" onClick={(e: React.MouseEvent) => navigateTo(e, '/')}>View the meteorium</a>
+                    <a href="/about-meteors" onClick={(e: React.MouseEvent) => navigateTo(e, '/about-meteors')}>About meteors</a>
+                    <a href="/about-cams" onClick={(e: React.MouseEvent) => navigateTo(e, '/about-cams')}>About the CAMS-project</a>
+                    <a href="mailto:hans.vertriest@gmail.com">Contact me</a>
                 </div>
 
                 <div className="menu__contact" >
-                    <p>Feedback? Questions?</p>
-                    <a href="mailto:hans.vertriest@gmail.com">Contact me</a>
                     <p className="menu__references">
                     CAMS-data references<br/>P. Jenniskens, J. Baggaley, I. Crumpton, P. Aldous, P. Pokorny, D. Janches, P. S. Gural, D. Samuels, J. Albers, A. Howell, C. Johannink, M. Breukers, M. Odeh, N. Moskovitz, J. Collison, S. Ganju, 2018. A survey of southern hemisphere meteor showers. Planetary Space Science 154, 21–29.
                     </p>
