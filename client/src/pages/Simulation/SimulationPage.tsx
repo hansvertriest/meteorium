@@ -36,7 +36,7 @@ const SimulationPage: FunctionComponent = () => {
     const [ timeControls, setTimeControls ] = useState<TimeControls | undefined>();
     const [ meteorControls, setMeteorControls ] = useState<MeteorControls | undefined>();
     const [ cameraControls, setCameraControls ] = useState<CameraControls | undefined>();
-    const [ simulationControls, simulationcontrols ] = useState<SimulationControls | undefined>();
+    const [ simulationControls, setSimulationcontrols ] = useState<SimulationControls | undefined>();
 
     // Popups 
     const [ loadingPopupContent, setLoadingPopupContent ] = useState<IOnSimLoadStartEvent | undefined>();
@@ -72,7 +72,7 @@ const SimulationPage: FunctionComponent = () => {
 
             // Create SimulationControls
             const simulationControlsObject = new SimulationControls(simulation);
-            simulationcontrols(simulationControlsObject);
+            setSimulationcontrols(simulationControlsObject);
 
             // Create TimeControls
             const timeControlsObject = new TimeControls(simulation);

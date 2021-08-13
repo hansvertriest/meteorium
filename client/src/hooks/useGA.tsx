@@ -19,12 +19,13 @@ const GATracker: React.FC = () => {
     useEffect(() => {
         if (initialized) {
             ReactGA.pageview(location.pathname + location.search);
-        } else if (gaTrackingId && environment === Environment.development) {
-            ReactGA.initialize(gaTrackingId);
+            if (environment === Environment.development) console.log(ReactGA.testModeAPI)
+        } else if (gaTrackingId) {
+            ReactGA.initialize(gaTrackingId, {testMode: environment === Environment.development});
             setInitialized(true);
-            console.log('Ga initialiezed')
         }
     }, [initialized, location]);
+
 
     return (
         <></>
