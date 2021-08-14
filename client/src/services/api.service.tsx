@@ -1,6 +1,5 @@
 import { default as React,  useContext, createContext, FunctionComponent } from "react";
 
-
 // Import types
 import {
     IShowerInfo
@@ -14,7 +13,7 @@ interface IApiProvider {
     children:  React.ReactNode
 }
 
-interface IAPiContext {
+interface IAPIContext {
     getShowerSearchResults: (searchTerm: string) => Promise<IShowerInfo[]>,
     getShowerInfo: (IauCode: string) => Promise<IShowerInfo>,
     getTopDates: (params: any) => Promise<{dates: ITopDate[], max_count: number}>,
@@ -23,7 +22,7 @@ interface IAPiContext {
 }
 
 const ApiContext = createContext({});
-const useApi = (): IAPiContext => useContext(ApiContext) as IAPiContext;
+const useApi = (): IAPIContext => useContext(ApiContext) as IAPIContext;
 
 const ApiProvider: FunctionComponent<IApiProvider> = ({children}: IApiProvider) => {
     const baseUrl = process.env.REACT_APP_API_BASE || '';

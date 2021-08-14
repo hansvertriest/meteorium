@@ -4,7 +4,11 @@ import ReactGA from 'react-ga';
 import { useLocation } from 'react-router-dom';
 
 // Hook imports
-import { useConfig, Environment } from '../hooks';
+import { useConfig, Environment, useStore } from '../hooks';
+
+// Component imports
+
+import { CookieBanner } from '../components';
 
 export interface IUseGA {
     GATracker: React.FC
@@ -13,23 +17,28 @@ export interface IUseGA {
 const GATracker: React.FC = () => {
     const { environment, gaTrackingId } = useConfig();
     const location = useLocation();
-    const [initialized, setInitialized] = useState(false);
+    const { value: allowsCookie, set: setAllowsCookie } = useStore('allowsCookies')
 
+    const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
         if (initialized) {
             ReactGA.pageview(location.pathname + location.search);
             if (environment === Environment.development) console.log(ReactGA.testModeAPI)
-        } else if (gaTrackingId) {
+        } else if (gaTrackingId && allowsCookie) {
             ReactGA.initialize(gaTrackingId, {testMode: environment === Environment.development});
             setInitialized(true);
+            console.log('GA init')
         }
-    }, [initialized, location]);
+    }, [initialized, location, allowsCookie]);
 
+    if (!initialized && allowsCookie === undefined) {
+        return (
+            <CookieBanner onAllowCookie={() => setAllowsCookie(true)} onDisableCookie={() => setAllowsCookie(false)}/>
+        );
+    }
 
-    return (
-        <></>
-    );
+    return (<></>)
 }
 
 const useGA = (): IUseGA => {

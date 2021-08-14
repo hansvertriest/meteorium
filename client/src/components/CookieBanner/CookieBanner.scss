@@ -1,0 +1,26 @@
+@import '../../App.scss';
+
+.cookie-banner {
+    position: fixed;
+    z-index: 300;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:$c-accent;
+    padding: 16px 24px 8px;
+    display: flex;
+    box-sizing: border-box;
+
+    p {
+        color: $c-text;
+        font-size: $font-small;
+        margin-right: 60px;
+    }
+
+    img {
+        width: 12px;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+    }
+}
