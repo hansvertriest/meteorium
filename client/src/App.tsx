@@ -1,6 +1,7 @@
 // Node imports
 import React, { FunctionComponent } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Store } from './services';
 
 // Hook imports
 import { 
@@ -18,28 +19,37 @@ import {
 import './App.css';
 
 const App: FunctionComponent = () => {
-  const { GATracker } = useGA();
 
   return (
     <div className="App" >
+      <Store localStorageKeys={['allowsCookies']}>
       <ApiProvider>
-      <BrowserRouter basename='/'>
-        <GATracker />
-        <Switch>
-          <Route path="/about-meteors">
-            <AboutMeteors />
-          </Route>
-          <Route path="/about-cams">
-            <AboutCams />
-          </Route>
-          <Route path="/">
-            <SimulationPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+        <RouterComponent />
       </ApiProvider>
+      </Store>
 
     </div>
+  );
+}
+
+const RouterComponent: FunctionComponent = () => {
+  const { GATracker } = useGA();
+
+  return (
+    <BrowserRouter basename='/'>
+      <GATracker />
+      <Switch>
+        <Route path="/about-meteors">
+          <AboutMeteors />
+        </Route>
+        <Route path="/about-cams">
+          <AboutCams />
+        </Route>
+        <Route path="/">
+          <SimulationPage />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
