@@ -6,7 +6,7 @@ from sqlalchemy.types import Float, Text, BigInteger, Time, Date, Integer
 class MeteorData:
     def __init__ (self):
         print("Loading data")
-        file = "../server/datasets//CAMS-v3-2010to2016.txt"
+        file = "CAMS-v3-2010to2016-sanitized.txt"
         rows = None
 
         # METEOR DATA
@@ -14,7 +14,7 @@ class MeteorData:
         self.meteors_df = pd.read_csv(file, sep='\t', engine="python", decimal=',', nrows=rows)
 
         # reformat
-        if not file == "./datasets/CAMS-v3-2010to2016-sanitized.txt":
+        if not file == "CAMS-v3-2010to2016-sanitized.txt":
             self.meteors_df = self.filterMeteorData(self.meteors_df)
             if  rows == None: 
                 self.sanitizeRawFileAndSave(self.meteors_df)
@@ -23,7 +23,7 @@ class MeteorData:
 
         # SHOWER NAMES
         # read
-        iau_df = pd.read_csv('./meteorShowers_edited.csv', sep=';', engine="python", error_bad_lines=False)
+        iau_df = pd.read_csv('./meteorShowers_edited.csv', sep=';', engine="python")
         print("Showers loaded (1/2)")
         # assign column name by index-nr
         iau_df.columns = list(range(0, len(iau_df.columns)))
@@ -71,11 +71,11 @@ class MeteorData:
         return new_df
 
     def migrateData(self):
-        engine = create_engine('postgresql://postgres:9632@localhost:5432/meteorium')
+        engine = create_engine('postgresql://hans:9632@postgres:5432/meteorium')
         self.showers_df.to_sql(
             'showers',
             engine,
-            if_exists='replace',
+            if_exists='fail',
             index=False,
             dtype={
                 "iau_no": BigInteger,
@@ -93,7 +93,7 @@ class MeteorData:
         self.meteors_df.to_sql(
             'observations',
             engine,
-            if_exists='replace',
+            if_exists='fail',
             index=False,
             dtype={
                 "time": Time,
@@ -117,3 +117,5 @@ class MeteorData:
 
 
 data = MeteorData()
+
+
