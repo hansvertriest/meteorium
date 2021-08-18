@@ -5,6 +5,7 @@ import { Pool } from 'pg';
 
 // Classes
 import Router from './router/Router';
+import GlobalMiddleware from './middleware/GlobalMiddleware';
 
 // types
 import { IConfig } from './services/config/config.types'
@@ -27,6 +28,8 @@ export default class App {
 
     private createExpress = (): void => {
         this.app = express();
+        const middleware = new GlobalMiddleware(this.app);
+        middleware.load();
     }
 
     private createServer(): void {
