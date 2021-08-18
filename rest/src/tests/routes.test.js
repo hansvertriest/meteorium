@@ -37,4 +37,20 @@ describe('Outputs to another', () => {
     
 //     expect(resExpress).toEqual(resFlask)
 //   })
+  it('should return same as python server', async () => {
+
+    const route = '/count/month'
+
+    const resExpress = await fetch(exprBaseRoute+route)
+        .then((res) => {
+            return res.json();
+        })
+    
+    const resFlask = await fetch(flaskBaseRoute+route)
+        .then((res) => {
+            return res.json();
+        })
+    
+    expect(resExpress).toEqual(resFlask)
+  })
 })
