@@ -26,8 +26,13 @@ export default class Router {
     }
 
     registerRoutes  = () => {
-        this.app.get('/shower-codes', this.showerController.get);
+        // this.app.get('/shower-codes', this.showerController.get);
         this.app.get('/meteors/:date', this.observationController.getAtDate);
+        this.app.get('/showers/search/:word', this.showerController.search);
+        // this.app.get('/count/month', );
+        // this.app.get('/topdates', );
+        // this.app.get('/meteors-at-location', );
+        // this.app.get('/showerinfo/:iauCode', );
         
     }
 }

@@ -29,7 +29,7 @@ export default class ObservationController {
 
             if (dateParsed.length !== 6 && dateParsed.length !== 8) throw {code: 412, msg: 'Date is not structured as "dd-mm-yy" or "dd-mm-yyyy"'}
 
-            const q = await this.pool.query<IObservationWithShower>(`
+            const q = await this.pool.query<IObservationWithShowerLegacy>(`
                 SELECT * 
                 FROM observations
                 FULL JOIN showers
@@ -39,7 +39,7 @@ export default class ObservationController {
 
             if (q.rows.length === 0) throw {code: 404, msg: 'Could not find any observations at this date.'}
 
-            const result: IObservationWithShowerLegacy[] = convertToLegacyFormat(q.rows);
+            const result: IObservationWithShower[] = convertToLegacyFormat(q.rows);
             
             return res.json({
                 date,
