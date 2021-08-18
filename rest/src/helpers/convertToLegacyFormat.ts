@@ -1,8 +1,10 @@
+// Helpers
+import { captilizeFirstChar } from '../helpers/stringHelpers';
 
 // Types  
 import { IObservationWithShower, IObservationWithShowerLegacy } from '../controllers/d.types';
 
-export const convertToLegacyFormat = ( rows: IObservationWithShower[]): IObservationWithShowerLegacy[] => {
+export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[]): IObservationWithShower[] => {
     let newRows = rows as unknown[];
 
     // convert keys
@@ -11,7 +13,7 @@ export const convertToLegacyFormat = ( rows: IObservationWithShower[]): IObserva
         Object.keys(row).forEach((key: string) => {
             let  keyComponents = key.split('_');
             keyComponents = keyComponents.map((comp, index) => {
-                if (index > 0) return comp.charAt(0).toUpperCase() + comp.slice(1);
+                if (index > 0) return captilizeFirstChar(comp);
                 return comp;
             })
             const newKey = keyComponents.join('');
@@ -58,5 +60,5 @@ export const convertToLegacyFormat = ( rows: IObservationWithShower[]): IObserva
         return newRow;
     })
 
-    return newRows as IObservationWithShowerLegacy[];
+    return newRows as IObservationWithShower[];
 }

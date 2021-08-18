@@ -1,4 +1,16 @@
-export interface IObservationWithShower {
+export interface IShower {
+    iau_no?: string,
+    iau_code?: string,
+    name?: string,
+    parent?: string,
+    start?: string | null,
+    end?: string | null,
+    peak?: string | null,
+    speed?: number | null,
+    freq_per_hour?: number | null,
+}
+
+export interface IObservation {
     time?: string,
     date?: string, 
     t_begin?: number,
@@ -12,17 +24,20 @@ export interface IObservationWithShower {
     iau_no?: string,
     stations?: string,
     network?:number,
-    iau_code?: string,
+}
+export interface IShowerLegacy {
+    iauCode: string,
+    iauNo?: number,
     name?: string,
     parent?: string,
-    start?: string | null,
-    end?: string | null,
-    peak?: string | null,
-    speed?: number | null,
-    freq_per_hour?: number | null,
+    start?: string | '*',
+    end?: string | '*',
+    peak?: string | '*',
+    speed?: number | '*',
+    freq_per_hour?: number | '*',
 }
 
-export interface IObservationWithShowerLegacy {
+export interface IObservationLegacy {
     time?: string,
     date?: string, 
     tBegin?: number,
@@ -36,12 +51,8 @@ export interface IObservationWithShowerLegacy {
     iauNo?: number,
     stations?: string,
     network?:number,
-    iauCode: string,
-    name?: string,
-    parent?: string,
-    start?: string | '*',
-    end?: string | '*',
-    peak?: string | '*',
-    speed?: number | '*',
-    freq_per_hour?: number | '*',
+}
+export interface IObservationWithShower extends IShower, IObservation{
+}
+export interface IObservationWithShowerLegacy extends IShowerLegacy, IObservationLegacy {
 }
