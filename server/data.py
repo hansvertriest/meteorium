@@ -5,7 +5,7 @@ import math
 class MeteorData:
     def __init__ (self):
         print("Loading data")
-        file = "./datasets/CAMS-GMN-sanitized.txt"
+        file = "./datasets/CAMS-v3-2010to2016-sanitized.txt"
         rows = None
 
         # METEOR DATA
