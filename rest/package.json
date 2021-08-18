@@ -1,0 +1,31 @@
+{
+  "name": "meteorium-api",
+  "version": "1.0.0",
+  "description": "Find the live project here at [the Meteroium](www.meteorium.space).<br> CAMS-data references:<br> P. Jenniskens, J. Baggaley, I. Crumpton, P. Aldous, P. Pokorny, D. Janches, P. S. Gural, D. Samuels, J. Albers, A. Howell, C. Johannink, M. Breukers, M. Odeh, N. Moskovitz, J. Collison, S. Ganju, 2018. A survey of southern hemisphere meteor showers. Planetary Space Science 154, 21–29.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:serve": "NODE_ENV=development ts-node-dev ./src/index.ts --watch --poll --respawn --transpileOnly "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hansvertriest/meteorium.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hansvertriest/meteorium/issues"
+  },
+  "homepage": "https://github.com/hansvertriest/meteorium#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "http": "*",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "@types/pg": "^8.6.1"
+  }
+}
