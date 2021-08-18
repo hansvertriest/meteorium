@@ -12,6 +12,9 @@ import { IConfig } from './services/config/config.types';
 // create config service
 const config: IConfig = new Config();
 
+// Set timezone to GMT+0000
+process.env.TZ = 'Africa/Abidjan'
+
 try {
     // Create a postgres pool
     const pg = new Postgres(config.postgres);
