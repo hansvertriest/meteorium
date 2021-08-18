@@ -21,11 +21,24 @@ export default class ShowerController {
     }
 
     get = async (req: Request, res: Response, next: NextFunction) => {
-        const q = await this.pool.query('SELECT showers.iau_code FROM showers;');
-        console.log(q.rows);
-        res.json({
-            codes: q.rows
-        })
+        const { iauCode } = req.params;
+
+        try {
+            const q = await this.pool.query(`
+                SELECT *
+                FROM showers
+                WHERE showers.iau_code='${iauCode.toUpperCase()}';
+            `);
+
+            if (q.rows.length === 0) throw {code: 404, msg: 'Could not find any showers.'}
+            
+            const result: IShower[] = convertToLegacyFormat(q.rows);
+
+            res.json(result[0])
+        } catch (error) {
+            if (error.msg) return res.status(404).json({error: error.msg});
+            return res.status(500).json({msg: 'Internal server error.'});
+        }
     }
 
 
