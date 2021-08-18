@@ -27,8 +27,14 @@ export const convertToLegacyFormat = ( rows: IObservationWithShower[]): IObserva
                 case 'iauNo':
                     newRow[key] = Number(newRow[key]);
                     break;
-                case 'date': 
-                    newRow[key] = new Date(newRow[key]).toString();
+                case 'date':
+                    // badly refactor dates just to exactly match the api-responds of the legacy version
+                    let dateString =new Date(newRow[key]).toString().replace('+0000 (Greenwich Mean Time)' , '');
+                    const dateStringComps = dateString.split(' ');
+                    newRow[key] = dateStringComps[0] + ', ' + dateStringComps[2] + ' ' + dateStringComps[1]+ ' ' + dateStringComps[3]+ ' ' + dateStringComps[4] + ' ' + dateStringComps[5];
+                    break;
+                case 'Unnamed: 0':
+                    newRow[key] = Number(newRow[key]);
                     break;
                 case 'start':
                     newRow[key] = (newRow[key] === null) ? '*' : newRow[key];
