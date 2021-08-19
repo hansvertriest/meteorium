@@ -4,6 +4,13 @@ import { captilizeFirstChar } from '../helpers/stringHelpers';
 // Types  
 import { IObservationWithShower, IObservationWithShowerLegacy } from '../controllers/d.types';
 
+export const convertDateToLegacy = ( date: Date): string => {
+    // badly refactor dates just to exactly match the api-responds of the legacy version
+    let dateString = date.toString().replace('+0000 (Greenwich Mean Time)' , '');
+    const dateStringComps = dateString.split(' ');
+    return dateStringComps[0] + ', ' + dateStringComps[2] + ' ' + dateStringComps[1]+ ' ' + dateStringComps[3]+ ' ' + dateStringComps[4] + ' ' + dateStringComps[5];
+}
+
 export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[]): IObservationWithShower[] => {
     let newRows = rows as unknown[];
 
@@ -30,10 +37,7 @@ export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[]): IO
                     newRow[key] = Number(newRow[key]);
                     break;
                 case 'date':
-                    // badly refactor dates just to exactly match the api-responds of the legacy version
-                    let dateString =new Date(newRow[key]).toString().replace('+0000 (Greenwich Mean Time)' , '');
-                    const dateStringComps = dateString.split(' ');
-                    newRow[key] = dateStringComps[0] + ', ' + dateStringComps[2] + ' ' + dateStringComps[1]+ ' ' + dateStringComps[3]+ ' ' + dateStringComps[4] + ' ' + dateStringComps[5];
+                    newRow[key] = convertDateToLegacy(new Date(newRow[key]));
                     break;
                 case 'Unnamed: 0':
                     newRow[key] = Number(newRow[key]);
