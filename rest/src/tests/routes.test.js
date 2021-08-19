@@ -5,7 +5,7 @@ const exprBaseRoute = 'http://0.0.0.0:8000';
 const flaskBaseRoute = 'http://127.0.0.1:5000';
 
 describe('Outputs to another', () => {
-  it('should return same as python server', async () => {
+  it('getMeteors should return same as python server', async () => {
 
     const route = '/meteors/21-10-10'
 
@@ -37,9 +37,26 @@ describe('Outputs to another', () => {
     
 //     expect(resExpress).toEqual(resFlask)
 //   })
-  it('should return same as python server', async () => {
+  it('getMonthlyCount should return same as python server', async () => {
 
     const route = '/count/month'
+
+    const resExpress = await fetch(exprBaseRoute+route)
+        .then((res) => {
+            return res.json();
+        })
+    
+    const resFlask = await fetch(flaskBaseRoute+route)
+        .then((res) => {
+            return res.json();
+        })
+    
+    expect(resExpress).toEqual(resFlask)
+  })
+
+  it('getShowerInfo should return same as python server', async () => {
+
+    const route = '/showerinfo/spo'
 
     const resExpress = await fetch(exprBaseRoute+route)
         .then((res) => {
