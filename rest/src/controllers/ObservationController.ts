@@ -8,7 +8,7 @@ import { Pool } from 'pg';
 import dayjs from 'dayjs';
 
 // Helpers
-import { convertToLegacyFormat } from '../helpers/convertToLegacyFormat';
+import { convertToLegacyFormat, convertDateToLegacy } from '../helpers/convertToLegacyFormat';
 
 // Types  
 import { IObservationWithShower, IObservationWithShowerLegacy } from './d.types';
@@ -131,6 +131,63 @@ export default class ObservationController {
         } catch (error) {
             if (error.msg) return res.status(404).json({error: error.msg});
             console.log(error)
+            return res.status(500).json({msg: 'Internal server error.'});
+            
+        }
+    }
+
+    getTopDates = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+        const { limit, shower: showerCode, year, month } = req.query;
+
+        const isDefined = (value) => {
+            return value !== undefined && value !== '';
+        } 
+        
+        try {
+            let dateUnderLimit = dayjs()
+                .year((isDefined(year)) ? year : 2000)
+                .month((isDefined(month)) ? Number(month) - 1 : 0)
+                .date(1)
+            let dateUpperLimit = dayjs()
+                .year((isDefined(year)) ? year : 3000)
+                .month((isDefined(month)) ?  Number(month) - 1 : 11)
+                .date(dateUnderLimit.daysInMonth())
+
+            let queryString = `
+                SELECT 
+                    DATE_TRUNC('day', observations.date)
+                        AS date,
+                    COUNT(observations.date) AS count
+                FROM observations
+                LEFT JOIN showers ON observations.iau_no=showers.iau_no
+                WHERE showers.iau_code LIKE '${(showerCode) ? showerCode.toUpperCase() : '%'}'
+                    AND observations.date BETWEEN to_date('${dayjs(dateUnderLimit).format('YYYY-MM-DD')}','YYYY-MM-DD') 
+                                    AND to_date('${dayjs(dateUpperLimit).format('YYYY-MM-DD')}','YYYY-MM-DD')
+                GROUP BY DATE_TRUNC('day', observations.date)
+                ORDER BY count DESC
+                ${(limit) ? 'LIMIT ' + limit : ''};
+            `;
+
+
+            const q = await this.pool.query<{date: string, count: number}>(queryString);
+
+            const resultLegacy: {date: string, count: number}[] = q.rows.map((row) => {
+                return {
+                    count: row.count,
+                    date: convertDateToLegacy(new Date(row.date))
+                }
+            })
+
+            const resultLegacySorted = resultLegacy.sort((a, b) => (Number(a.count) < Number(b.count)) ? 1 : -1);
+
+            if (q.rows.length === 0) throw {code: 404, msg: 'Could not find any observations at this date.'}
+
+            return res.json({
+                dates: resultLegacySorted
+            })
+        } catch (error) {
+            if (error.msg) return res.status(404).json({error: error.msg});
+            console.log(error);
             return res.status(500).json({msg: 'Internal server error.'});
             
         }
