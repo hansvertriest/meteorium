@@ -31,7 +31,7 @@ export default class Router {
         this.app.get('/showers/search/:word', this.showerController.search);
         this.app.get('/count/month', this.observationController.getMonthlyMeteorCount);
         this.app.get('/topdates', this.observationController.getTopDates);
-        // this.app.get('/meteors-at-location', );
+        this.app.get('/meteors-at-location', this.observationController.getMeteorsAtLocation);
         
     }
 }

@@ -2,7 +2,12 @@
 import { captilizeFirstChar } from '../helpers/stringHelpers';
 
 // Types  
-import { IObservationWithShower, IObservationWithShowerLegacy } from '../controllers/d.types';
+import {
+    IObservationWithShower,
+    IObservationWithShowerLegacy,
+    IShowerAtLocation,
+    IShowerAtLocationLegacy
+} from '../controllers/d.types';
 
 export const convertDateToLegacy = ( date: Date): string => {
     // badly refactor dates just to exactly match the api-responds of the legacy version
@@ -11,11 +16,8 @@ export const convertDateToLegacy = ( date: Date): string => {
     return dateStringComps[0] + ', ' + dateStringComps[2] + ' ' + dateStringComps[1]+ ' ' + dateStringComps[3]+ ' ' + dateStringComps[4] + ' ' + dateStringComps[5];
 }
 
-export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[]): IObservationWithShower[] => {
-    let newRows = rows as unknown[];
-
-    // convert keys
-    newRows = newRows.map((row) => {
+export const convertKeysFromSnakeToCamel = (rows: unknown[]) => {
+    return rows.map((row) => {
         const newRow = {};
         Object.keys(row).forEach((key: string) => {
             let  keyComponents = key.split('_');
@@ -28,6 +30,13 @@ export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[]): IO
         })
         return newRow;
     });
+}
+
+export const convertToLegacyFormat = ( rows: IObservationWithShowerLegacy[] | IShowerAtLocationLegacy[]): IObservationWithShower[] | IShowerAtLocation[] => {
+    let newRows = rows as unknown[];
+
+    // convert keys
+    newRows = convertKeysFromSnakeToCamel(newRows);
 
     newRows = newRows.map((row) => {
         const newRow = row;

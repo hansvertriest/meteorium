@@ -8,10 +8,18 @@ import { Pool } from 'pg';
 import dayjs from 'dayjs';
 
 // Helpers
-import { convertToLegacyFormat, convertDateToLegacy } from '../helpers/convertToLegacyFormat';
+import {
+    convertToLegacyFormat,
+    convertDateToLegacy
+} from '../helpers/convertToLegacyFormat';
+import { getDeltaDegreeOfVisibilityCone } from '../helpers/calculations';
 
 // Types  
-import { IObservationWithShower, IObservationWithShowerLegacy } from './d.types';
+import {
+    IObservationWithShower,
+    IObservationWithShowerLegacy,
+    IShowerAtLocationLegacy
+} from './d.types';
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -188,6 +196,121 @@ export default class ObservationController {
         } catch (error) {
             if (error.msg) return res.status(404).json({error: error.msg});
             console.log(error);
+            return res.status(500).json({msg: 'Internal server error.'});
+            
+        }
+    }
+
+
+
+    getMeteorsAtLocation = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+        const { lon, lat, height = 100 } = req.query;
+        
+
+        try {
+            if (!lon || lon === '' || !lat && lat === '' || height === '') throw {code: 412, msg: 'Query params do not match specified requirements.'}
+            
+            const deltaDegree = getDeltaDegreeOfVisibilityCone(Number(height));
+            
+            let showersQuery = `
+                SELECT DISTINCT ON (max_count_per_date_per_iau.iau_no)
+                    max_count_per_date_per_iau.date,
+                    max_count_per_date_per_iau.time AS best_date_first_meteor_time,
+                    observations_total_count.total_count AS best_recorded_date,
+                    showers.start,
+                    showers.end,
+                    showers.iau_code,
+                    showers.name
+                    
+                FROM
+                (
+                    SELECT 
+                        counted_observations.iau_no,
+                        MAX(counted_observations.count) as max_count_date,
+                        counted_observations.date,
+                        observations_first_meteor.time
+                    
+                    FROM
+                        (
+                        SELECT 
+                            observations.iau_no,
+                            observations.date,
+                            COUNT(observations.iau_no) AS count
+                        FROM observations
+                        WHERE 
+                            (observations.lat_begin BETWEEN ${Number(lat) - deltaDegree} AND ${Number(lat) + deltaDegree})
+                            AND (observations.lon_begin BETWEEN ${Number(lon) - deltaDegree} AND ${Number(lon) + deltaDegree})
+                        GROUP BY 
+                            observations.date,
+                            observations.iau_no
+                        ) counted_observations
+                    FULL JOIN 
+                        (
+                        SELECT DISTINCT ON (observations.iau_no, observations.date)
+                            observations.time,
+                            observations.iau_no,
+                            observations.date
+                        FROM observations
+                        WHERE 
+                            (observations.lat_begin BETWEEN ${Number(lat) - deltaDegree} AND ${Number(lat) + deltaDegree})
+                            AND (observations.lon_begin BETWEEN ${Number(lon) - deltaDegree} AND ${Number(lon) + deltaDegree})
+                        ORDER BY
+                            observations.iau_no,
+                            observations.date,
+                            observations.time ASC
+                        ) observations_first_meteor
+                        ON 
+                            observations_first_meteor.iau_no=counted_observations.iau_no AND
+                            observations_first_meteor.date=counted_observations.date
+                    
+                    GROUP BY 
+                        counted_observations.iau_no,
+                        counted_observations.date,
+                        observations_first_meteor.time
+                    ORDER BY counted_observations.iau_no ASC	
+                ) max_count_per_date_per_iau
+                FULL JOIN 
+                    (
+                    SELECT 
+                        counted_observations.iau_no,
+                        SUM(counted_observations.count) as total_count
+                    FROM 
+                        (SELECT 
+                                observations.iau_no,
+                                COUNT(observations.iau_no) AS count
+                            FROM observations
+                        WHERE 
+                            (observations.lat_begin BETWEEN ${Number(lat) - deltaDegree} AND ${Number(lat) + deltaDegree})
+                            AND (observations.lon_begin BETWEEN ${Number(lon) - deltaDegree} AND ${Number(lon) + deltaDegree})
+                            GROUP BY 
+                                observations.iau_no
+                        ) counted_observations
+                    GROUP BY 
+                        counted_observations.iau_no
+                    ) observations_total_count
+                    ON 
+                        observations_total_count.iau_no=max_count_per_date_per_iau.iau_no
+                LEFT JOIN showers
+                    ON max_count_per_date_per_iau.iau_no=showers.iau_no 
+                ORDER BY 
+                    max_count_per_date_per_iau.iau_no, 
+                    max_count_per_date_per_iau.max_count_date DESC
+                ;
+            `
+
+            const q = await this.pool.query<IShowerAtLocationLegacy>(showersQuery);
+
+           let rowsFormated = convertToLegacyFormat(q.rows);
+
+
+            res.json({
+                showers: rowsFormated
+            })
+
+            
+        } catch (error) {
+            if (error.msg) return res.status(404).json({error: error.msg});
+            console.log(error)
             return res.status(500).json({msg: 'Internal server error.'});
             
         }
