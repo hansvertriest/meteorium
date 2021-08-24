@@ -25,6 +25,16 @@ export interface IObservation {
     stations?: string,
     network?:number,
 }
+
+export interface IShowerAtLocation {
+    end: string,
+    start: string,
+    iau_code: string,
+    name: string,
+    count: string,
+    best_date_first_meteor_time: string,
+    best_recorded_date: string,
+}
 export interface IShowerLegacy {
     iauCode: string,
     iauNo?: number,
@@ -51,6 +61,15 @@ export interface IObservationLegacy {
     iauNo?: number,
     stations?: string,
     network?:number,
+}
+export interface IShowerAtLocationLegacy {
+    end: string,
+    start: string,
+    iauCode: string,
+    name: string,
+    count: string,
+    bestDateFirstMeteorTime: string,
+    bestRecordedDate: string,
 }
 export interface IObservationWithShower extends IShower, IObservation{
 }
