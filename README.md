@@ -5,7 +5,7 @@ P. Jenniskens, J. Baggaley, I. Crumpton, P. Aldous, P. Pokorny, D. Janches, P. S
 
 ## Getting started
 ### Client
-This is a react project. To run it:
+This is a react project, to run it:
 ```
 npm run install
 npm run start
