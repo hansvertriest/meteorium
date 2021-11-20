@@ -24,7 +24,7 @@ class MeteorData:
         # SHOWER NAMES
         # read
         iau_df = pd.read_csv('./meteorShowers_edited.csv', sep=';', engine="python")
-        print("Showers loaded (1/2)")
+        print("Data loaded (1/2)")
         # assign column name by index-nr
         iau_df.columns = list(range(0, len(iau_df.columns)))
         # select columns
@@ -36,7 +36,7 @@ class MeteorData:
 
         # Second dataset
         iau_IMO_df = pd.read_csv('./meteorShowers_IMO.csv', sep=",", engine="python")
-        print("Showers loaded (2/2)")
+        print("Data loaded (2/2)")
         # Drop antihelion row
         iau_IMO_df.drop(index=0, inplace=True)
         # select subset of df
@@ -73,6 +73,23 @@ class MeteorData:
     def migrateData(self):
         engine = create_engine('postgresql://hans:9632@postgres:5432/meteorium')
         self.showers_df.to_sql(
+            'SourcesIMOShowers',
+            engine,
+            if_exists='replace',
+            index=False,
+            dtype={
+                "iau_no": BigInteger,
+                "iau_code": Text,
+                "name": Text,
+                "parent": Text,
+                "start": Text,
+                "end": Text,
+                "peak": Text,
+                "speed": Float,
+                "freq_per_hour": Float,
+            }
+        )
+        self.showers_df.to_sql(
             'showers',
             engine,
             if_exists='fail',
@@ -96,11 +113,12 @@ class MeteorData:
             if_exists='fail',
             index=False,
             dtype={
+                "id": Integer,
                 "time": Time,
                 "date": Date,
                 "t_begin": Float,
                 "t_end": Float,
-                "lat_begin": Float,
+                "lat_begin": Float, 
                 "lon_begin": Float,
                 "h_begin": Float,
                 "lat_end": Float,
@@ -111,9 +129,29 @@ class MeteorData:
                 "network": Integer,
             }
         )
-        print("Migrated showers")
-
-
+        self.meteors_df.to_sql(
+            'SourcesCAMSObservations',
+            engine,
+            if_exists='replace',
+            index=False,
+            dtype={
+                "id": Integer,
+                "time": Time,
+                "date": Date,
+                "t_begin": Float,
+                "t_end": Float,
+                "lat_begin": Float, 
+                "lon_begin": Float,
+                "h_begin": Float,
+                "lat_end": Float,
+                "lon_end": Float,
+                "h_end": Float,
+                "iau_no": Integer,
+                "stations": Text,
+                "network": Integer,
+            }
+        )
+        print("Migrated observations")
 
 
 data = MeteorData()
